@@ -5,6 +5,29 @@ All notable changes to `filament-page-manager` will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.3] - 2024-09-24
+
+### Fixed
+- **PHPStan Level 8 Compliance**
+  - Fixed setAttribute method to properly return $this in HasTranslations trait
+  - Corrected relationship method annotations using self references for proper type inference
+  - Fixed translatable property existence check to prevent nullable warnings
+  - Added proper PHPDoc type hints for Model property access in Resources
+  - Improved generateUniqueSlug method with locale string type validation
+  - Added method existence check for getTranslation in AbstractTemplate
+
+- **Type Safety Refinements**
+  - Enhanced generic type specifications for HasFactory trait usage
+  - Specified proper generic types for BelongsTo and HasMany relationships
+  - Fixed return type consistency across trait methods
+  - Improved type inference for dynamic model properties
+
+- **Code Quality**
+  - Replaced nullsafe operators with proper ternary conditions for clarity
+  - Enhanced error handling in template resolution
+  - Improved locale handling in slug generation
+  - Better type checking for array keys and values
+
 ## [1.0.2] - 2024-09-24
 
 ### Fixed
