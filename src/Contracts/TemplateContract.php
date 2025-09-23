@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace IamGerwin\FilamentPageManager\Contracts;
 
-use Filament\Forms\Components\Component;
 use Illuminate\Database\Eloquent\Model;
 
 interface TemplateContract
