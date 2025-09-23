@@ -1,0 +1,82 @@
+<?php
+
+declare(strict_types=1);
+
+return [
+    'pages' => [
+        'label' => 'Page',
+        'plural_label' => 'Pages',
+        'navigation_label' => 'Pages',
+        'title' => 'Pages',
+        'create' => 'Create Page',
+        'edit' => 'Edit Page',
+        'delete' => 'Delete Page',
+        'duplicate' => 'Duplicate Page',
+        'publish' => 'Publish',
+        'unpublish' => 'Unpublish',
+        'view' => 'View Page',
+        'fields' => [
+            'name' => 'Page Name',
+            'template' => 'Template',
+            'parent' => 'Parent Page',
+            'slug' => 'Slug',
+            'active' => 'Published',
+            'sort_order' => 'Sort Order',
+            'created_at' => 'Created At',
+            'updated_at' => 'Updated At',
+        ],
+        'messages' => [
+            'created' => 'Page created successfully.',
+            'updated' => 'Page updated successfully.',
+            'deleted' => 'Page deleted successfully.',
+            'duplicated' => 'Page duplicated successfully.',
+            'published' => 'Page published successfully.',
+            'unpublished' => 'Page unpublished successfully.',
+        ],
+    ],
+    'regions' => [
+        'label' => 'Region',
+        'plural_label' => 'Regions',
+        'navigation_label' => 'Regions',
+        'title' => 'Regions',
+        'create' => 'Create Region',
+        'edit' => 'Edit Region',
+        'delete' => 'Delete Region',
+        'duplicate' => 'Duplicate Region',
+        'fields' => [
+            'name' => 'Region Name',
+            'template' => 'Template',
+            'created_at' => 'Created At',
+            'updated_at' => 'Updated At',
+        ],
+        'messages' => [
+            'created' => 'Region created successfully.',
+            'updated' => 'Region updated successfully.',
+            'deleted' => 'Region deleted successfully.',
+            'duplicated' => 'Region duplicated successfully.',
+        ],
+    ],
+    'templates' => [
+        'label' => 'Template',
+        'plural_label' => 'Templates',
+        'select' => 'Select a Template',
+        'change_warning' => 'Template cannot be changed after creation',
+    ],
+    'seo' => [
+        'title' => 'SEO Settings',
+        'meta_title' => 'Meta Title',
+        'meta_description' => 'Meta Description',
+        'meta_keywords' => 'Meta Keywords',
+        'og_image' => 'Open Graph Image',
+    ],
+    'general' => [
+        'content' => 'Content',
+        'settings' => 'Settings',
+        'translations' => 'Translations',
+        'basic_information' => 'Basic Information',
+        'status' => 'Status',
+        'published' => 'Published',
+        'draft' => 'Draft',
+        'actions' => 'Actions',
+    ],
+];
