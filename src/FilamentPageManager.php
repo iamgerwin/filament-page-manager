@@ -69,6 +69,7 @@ class FilamentPageManager
             }
 
             $pages = $query->get();
+
             return $this->buildTree($pages, null, $withDrafts);
         });
     }
