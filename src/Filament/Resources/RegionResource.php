@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace IamGerwin\FilamentPageManager\Filament\Resources;
 
-use Filament\Forms;
 use Filament\Forms\Components\Component;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
@@ -135,7 +134,7 @@ class RegionResource extends Resource
         $options = [];
 
         foreach ($templates as $templateClass) {
-            $template = new $templateClass();
+            $template = new $templateClass;
             $options[$templateClass] = $template->name();
         }
 
@@ -148,7 +147,7 @@ class RegionResource extends Resource
             return 'Unknown';
         }
 
-        $template = new $templateClass();
+        $template = new $templateClass;
 
         return $template->name();
     }
@@ -161,7 +160,7 @@ class RegionResource extends Resource
             return [];
         }
 
-        $template = new $templateClass();
+        $template = new $templateClass;
         $fields = $template->fields();
         $locales = FilamentPageManager::getLocales();
 
@@ -186,7 +185,7 @@ class RegionResource extends Resource
         return array_map(function ($field) use ($prefix) {
             if ($field instanceof Component && $field->getName()) {
                 $originalName = $field->getName();
-                if (! str_starts_with($originalName, $prefix . '.')) {
+                if (! str_starts_with($originalName, $prefix.'.')) {
                     $field->name("{$prefix}.{$originalName}");
                 }
             }

@@ -46,7 +46,7 @@ class SamplePageTemplate extends AbstractPageTemplate
 }
 
 it('can create a template with all properties', function () {
-    $template = new SamplePageTemplate();
+    $template = new SamplePageTemplate;
 
     expect($template->name())->toBe('Sample Page')
         ->and($template->type())->toBe('page')
@@ -57,7 +57,7 @@ it('can create a template with all properties', function () {
 });
 
 it('can get template fields', function () {
-    $template = new SamplePageTemplate();
+    $template = new SamplePageTemplate;
     $fields = $template->fields();
 
     expect($fields)->toBeArray()
@@ -81,7 +81,7 @@ it('can resolve template data', function () {
         ],
     ]);
 
-    $template = new SamplePageTemplate();
+    $template = new SamplePageTemplate;
     $resolvedEn = $template->resolve($page, 'en');
     $resolvedEs = $template->resolve($page, 'es');
 
@@ -110,7 +110,7 @@ it('can generate SEO fields when enabled', function () {
         ],
     ]]);
 
-    $template = new SamplePageTemplate();
+    $template = new SamplePageTemplate;
     $seoFields = $template->seoFields();
 
     expect($seoFields)->toBeArray()
@@ -120,7 +120,7 @@ it('can generate SEO fields when enabled', function () {
 it('returns empty SEO fields when disabled', function () {
     config(['filament-page-manager.seo.enabled' => false]);
 
-    $template = new SamplePageTemplate();
+    $template = new SamplePageTemplate;
     $seoFields = $template->seoFields();
 
     expect($seoFields)->toBeEmpty();

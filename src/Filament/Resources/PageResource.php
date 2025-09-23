@@ -20,10 +20,7 @@ use Filament\Tables\Table;
 use IamGerwin\FilamentPageManager\Facades\FilamentPageManager;
 use IamGerwin\FilamentPageManager\Filament\Resources\PageResource\Pages as PagePages;
 use IamGerwin\FilamentPageManager\Models\Page;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Illuminate\Support\HtmlString;
 use Illuminate\Support\Str;
 
 class PageResource extends Resource
@@ -103,7 +100,7 @@ class PageResource extends Resource
                                         ->label('Slug')
                                         ->maxLength(255)
                                         ->rules([
-                                            'regex:' . config('filament-page-manager.validation.slug_pattern', '/^[a-z0-9]+(?:-[a-z0-9]+)*$/'),
+                                            'regex:'.config('filament-page-manager.validation.slug_pattern', '/^[a-z0-9]+(?:-[a-z0-9]+)*$/'),
                                         ])
                                         ->helperText('URL-friendly version of the page name'),
                                 ]);
@@ -249,7 +246,7 @@ class PageResource extends Resource
         $options = [];
 
         foreach ($templates as $templateClass) {
-            $template = new $templateClass();
+            $template = new $templateClass;
             $options[$templateClass] = $template->name();
         }
 
@@ -262,7 +259,7 @@ class PageResource extends Resource
             return 'Unknown';
         }
 
-        $template = new $templateClass();
+        $template = new $templateClass;
 
         return $template->name();
     }
@@ -275,7 +272,7 @@ class PageResource extends Resource
             return [];
         }
 
-        $template = new $templateClass();
+        $template = new $templateClass;
         $fields = $template->fields();
         $locales = FilamentPageManager::getLocales();
 
@@ -354,7 +351,7 @@ class PageResource extends Resource
         return array_map(function ($field) use ($prefix) {
             if ($field instanceof Component && $field->getName()) {
                 $originalName = $field->getName();
-                if (! str_starts_with($originalName, $prefix . '.')) {
+                if (! str_starts_with($originalName, $prefix.'.')) {
                     $field->name("{$prefix}.{$originalName}");
                 }
             }

@@ -32,12 +32,12 @@ class FilamentPageManagerServiceProvider extends PackageServiceProvider
     public function packageRegistered(): void
     {
         $this->app->singleton('filament-page-manager', function () {
-            return new \IamGerwin\FilamentPageManager\FilamentPageManager();
+            return new \IamGerwin\FilamentPageManager\FilamentPageManager;
         });
 
         // Load helper functions
-        if (file_exists(__DIR__ . '/Helpers/helpers.php')) {
-            require_once __DIR__ . '/Helpers/helpers.php';
+        if (file_exists(__DIR__.'/Helpers/helpers.php')) {
+            require_once __DIR__.'/Helpers/helpers.php';
         }
     }
 
@@ -52,15 +52,15 @@ class FilamentPageManagerServiceProvider extends PackageServiceProvider
         }
 
         FilamentAsset::register([
-            Css::make('filament-page-manager', __DIR__ . '/../resources/css/filament-page-manager.css'),
+            Css::make('filament-page-manager', __DIR__.'/../resources/css/filament-page-manager.css'),
         ], 'iamgerwin/filament-page-manager');
 
         $this->publishes([
-            __DIR__ . '/../resources/views' => resource_path('views/vendor/filament-page-manager'),
+            __DIR__.'/../resources/views' => resource_path('views/vendor/filament-page-manager'),
         ], 'filament-page-manager-views');
 
         $this->publishes([
-            __DIR__ . '/../stubs' => base_path('stubs/filament-page-manager'),
+            __DIR__.'/../stubs' => base_path('stubs/filament-page-manager'),
         ], 'filament-page-manager-stubs');
     }
 }

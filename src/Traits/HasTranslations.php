@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace IamGerwin\FilamentPageManager\Traits;
 
 use IamGerwin\FilamentPageManager\Facades\FilamentPageManager;
-use Illuminate\Support\Str;
 
 trait HasTranslations
 {
@@ -111,7 +110,7 @@ trait HasTranslations
         return isset($this->getTranslations($key)[$locale]);
     }
 
-    public function replicate(array $except = null)
+    public function replicate(?array $except = null)
     {
         $clone = parent::replicate($except);
 

@@ -52,7 +52,7 @@ class Region extends Model
     public function duplicate(): static
     {
         $clone = $this->replicate();
-        $clone->name = $this->generateUniqueName($this->name . ' (Copy)');
+        $clone->name = $this->generateUniqueName($this->name.' (Copy)');
         $clone->save();
 
         return $clone;

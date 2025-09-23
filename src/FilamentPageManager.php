@@ -20,14 +20,14 @@ class FilamentPageManager
         $this->templates[] = $templateClass;
     }
 
-    public function getTemplates(string $type = null): array
+    public function getTemplates(?string $type = null): array
     {
         if ($type === null) {
             return $this->templates;
         }
 
         return array_filter($this->templates, function ($template) use ($type) {
-            return (new $template())->type() === $type;
+            return (new $template)->type() === $type;
         });
     }
 
@@ -57,7 +57,7 @@ class FilamentPageManager
 
     public function getPagesStructure(bool $withDrafts = false): array
     {
-        $cacheKey = 'filament-page-manager.pages_structure' . ($withDrafts ? '_with_drafts' : '');
+        $cacheKey = 'filament-page-manager.pages_structure'.($withDrafts ? '_with_drafts' : '');
 
         return Cache::remember($cacheKey, config('filament-page-manager.cache_ttl', 3600), function () use ($withDrafts) {
             $query = $this->getPageModel()::query()

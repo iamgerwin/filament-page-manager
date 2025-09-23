@@ -44,10 +44,10 @@ class TestCase extends Orchestra
             'es' => 'Spanish',
         ]);
 
-        $migration = include __DIR__ . '/../database/migrations/create_filament_page_manager_pages_table.php';
+        $migration = include __DIR__.'/../database/migrations/create_filament_page_manager_pages_table.php';
         $migration->up();
 
-        $migration = include __DIR__ . '/../database/migrations/create_filament_page_manager_regions_table.php';
+        $migration = include __DIR__.'/../database/migrations/create_filament_page_manager_regions_table.php';
         $migration->up();
     }
 }

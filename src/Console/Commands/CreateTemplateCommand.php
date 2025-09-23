@@ -68,7 +68,7 @@ class CreateTemplateCommand extends Command
 
     protected function getStub(string $type): string
     {
-        $stubPath = __DIR__ . '/../../../stubs/' . ($type === 'page' ? 'page-template.stub' : 'region-template.stub');
+        $stubPath = __DIR__.'/../../../stubs/'.($type === 'page' ? 'page-template.stub' : 'region-template.stub');
 
         if (File::exists($stubPath)) {
             return File::get($stubPath);

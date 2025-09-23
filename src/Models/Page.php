@@ -56,7 +56,7 @@ class Page extends Model
     {
         return SlugOptions::create()
             ->generateSlugsFrom('name')
-            ->saveSlugsTo('slug.' . config('filament-page-manager.default_locale', 'en'))
+            ->saveSlugsTo('slug.'.config('filament-page-manager.default_locale', 'en'))
             ->doNotGenerateSlugsOnUpdate();
     }
 
@@ -118,7 +118,7 @@ class Page extends Model
         $path = implode('/', array_filter($segments));
 
         if ($templateClass = $this->template) {
-            $template = new $templateClass();
+            $template = new $templateClass;
             if ($suffix = $template->pathSuffix()) {
                 $path .= $suffix;
             }
@@ -128,21 +128,21 @@ class Page extends Model
         $suffix = config('filament-page-manager.paths.suffix', '');
 
         if ($prefix) {
-            $path = $prefix . '/' . $path;
+            $path = $prefix.'/'.$path;
         }
 
         if ($suffix && ! str_ends_with($path, $suffix)) {
             $path .= $suffix;
         }
 
-        return '/' . ltrim($path, '/');
+        return '/'.ltrim($path, '/');
     }
 
     public function getUrl(?string $locale = null): string
     {
         $baseUrl = config('filament-page-manager.paths.base_url', '');
 
-        return rtrim($baseUrl, '/') . $this->getPath($locale);
+        return rtrim($baseUrl, '/').$this->getPath($locale);
     }
 
     public function getTemplateInstance(): ?object
@@ -201,7 +201,7 @@ class Page extends Model
     public function duplicate(bool $includeChildren = false): static
     {
         $clone = $this->replicate();
-        $clone->name = $this->name . ' (Copy)';
+        $clone->name = $this->name.' (Copy)';
         $clone->slug = $this->generateUniqueSlug($this->slug);
         $clone->active = false;
         $clone->save();
