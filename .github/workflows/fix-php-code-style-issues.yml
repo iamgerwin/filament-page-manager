@@ -30,13 +30,23 @@ jobs:
       - name: Fix PHP code style issues
         uses: aglipanci/laravel-pint-action@2.6
 
+      - name: Check for changes
+        id: verify_changes
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "changed=true" >> $GITHUB_OUTPUT
+          else
+            echo "changed=false" >> $GITHUB_OUTPUT
+          fi
+
       - name: Commit changes
+        if: steps.verify_changes.outputs.changed == 'true'
         uses: stefanzweifel/git-auto-commit-action@v6
         with:
           commit_message: Fix code style
           commit_user_name: github-actions[bot]
           commit_user_email: github-actions[bot]@users.noreply.github.com
           commit_author: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
-          skip_dirty_check: true
+          skip_dirty_check: false
           skip_fetch: false
           disable_globbing: false
