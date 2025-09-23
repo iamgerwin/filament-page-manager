@@ -24,7 +24,7 @@ trait HasTranslations
     /**
      * @param  string  $key
      * @param  mixed  $value
-     * @return static
+     * @return $this
      */
     public function setAttribute($key, $value)
     {

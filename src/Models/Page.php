@@ -26,9 +26,11 @@ use Illuminate\Support\Str;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \IamGerwin\FilamentPageManager\Models\Page|null $parent
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \IamGerwin\FilamentPageManager\Models\Page> $children
+ * @phpstan-use HasFactory<\Illuminate\Database\Eloquent\Factories\Factory<static>>
  */
 class Page extends Model
 {
+    /** @use HasFactory<\Illuminate\Database\Eloquent\Factories\Factory<static>> */
     use HasFactory;
     use HasTranslations;
 
@@ -42,6 +44,7 @@ class Page extends Model
         'sort_order' => 'integer',
     ];
 
+    /** @var array<int, string> */
     protected $translatable = [
         'slug',
         'seo',
@@ -64,11 +67,17 @@ class Page extends Model
         return config('filament-page-manager.tables.pages', 'fpm_pages');
     }
 
+    /**
+     * @return BelongsTo<Page, Page>
+     */
     public function parent(): BelongsTo
     {
         return $this->belongsTo(static::class, 'parent_id');
     }
 
+    /**
+     * @return HasMany<Page>
+     */
     public function children(): HasMany
     {
         return $this->hasMany(static::class, 'parent_id')->orderBy('sort_order')->orderBy('name');

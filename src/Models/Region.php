@@ -16,9 +16,11 @@ use Illuminate\Database\Eloquent\Model;
  * @property array<string, mixed>|null $data
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @phpstan-use HasFactory<\Illuminate\Database\Eloquent\Factories\Factory<static>>
  */
 class Region extends Model
 {
+    /** @use HasFactory<\Illuminate\Database\Eloquent\Factories\Factory<static>> */
     use HasFactory;
     use HasTranslations;
 
@@ -28,6 +30,7 @@ class Region extends Model
         'data' => 'json',
     ];
 
+    /** @var array<int, string> */
     protected $translatable = [
         'data',
     ];

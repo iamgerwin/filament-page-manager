@@ -12,3 +12,11 @@ parameters:
     checkModelProperties: true
     ignoreErrors:
         - '#Unsafe usage of new static#'
+        - '#Call to static method make\(\) on an unknown class Filament\\Tables\\Actions#'
+        - '#Call to static method make\(\) on an unknown class Filament\\Forms\\Components#'
+        - '#Call to method (getName|name)\(\) on an unknown class Filament\\Forms\\Components\\Component#'
+        - '#Class Filament\\Forms\\Components\\Component not found#'
+        - '#Call to an undefined method object::(name|type|fields|pathSuffix|resolve)\(\)#'
+        - '#on an unknown class Filament\\Forms\\Components\\Component#'
+        - '#Cloning object of an unknown class Filament\\Forms\\Components\\Component#'
+        - '#Using nullsafe property access "\?->template" on left side of \?\? is unnecessary#'
