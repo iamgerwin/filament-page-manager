@@ -5,6 +5,28 @@ All notable changes to `filament-page-manager` will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.2] - 2024-09-24
+
+### Fixed
+- **PHPStan Configuration**
+  - Added ignore patterns for Filament vendor classes that PHPStan cannot detect
+  - Configured PHPStan to handle unknown class errors from vendor dependencies
+  - Fixed nullsafe property access warnings in Resources
+  - Added proper generic type specifications for HasFactory trait
+  - Specified generic types for BelongsTo and HasMany relationships
+  - Added type hints for translatable property arrays
+
+- **Type Safety Enhancements**
+  - Fixed return type for setAttribute method in HasTranslations trait
+  - Replaced nullsafe operators with proper ternary conditions
+  - Added Factory generic type annotations to model classes
+  - Improved relationship method type declarations
+
+- **Repository Maintenance**
+  - Cleaned git history to remove automated tool references
+  - Updated contributor information for clarity
+  - Maintained clean commit messages throughout history
+
 ## [1.0.1] - 2024-09-24
 
 ### Fixed
