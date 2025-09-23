@@ -9,6 +9,15 @@ use IamGerwin\FilamentPageManager\Traits\HasTranslations;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property int $id
+ * @property string $template
+ * @property string $name
+ * @property array<string, mixed>|null $data
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ */
+
 class Region extends Model
 {
     use HasFactory;

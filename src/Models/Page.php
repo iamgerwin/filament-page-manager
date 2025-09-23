@@ -12,6 +12,22 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 
+/**
+ * @property int $id
+ * @property bool $active
+ * @property int|null $parent_id
+ * @property string $template
+ * @property string $name
+ * @property array<string, string>|null $slug
+ * @property array<string, mixed>|null $seo
+ * @property array<string, mixed>|null $data
+ * @property int $sort_order
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \IamGerwin\FilamentPageManager\Models\Page|null $parent
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \IamGerwin\FilamentPageManager\Models\Page> $children
+ */
+
 class Page extends Model
 {
     use HasFactory;
@@ -59,6 +75,9 @@ class Page extends Model
         return $this->hasMany(static::class, 'parent_id')->orderBy('sort_order')->orderBy('name');
     }
 
+    /**
+     * @return array<int, \IamGerwin\FilamentPageManager\Models\Page>
+     */
     public function ancestors(): array
     {
         $ancestors = [];
@@ -72,6 +91,9 @@ class Page extends Model
         return array_reverse($ancestors);
     }
 
+    /**
+     * @return \Illuminate\Support\Collection<int, \IamGerwin\FilamentPageManager\Models\Page>
+     */
     public function descendants(): \Illuminate\Support\Collection
     {
         $descendants = collect();
@@ -84,6 +106,9 @@ class Page extends Model
         return $descendants;
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection<int, \IamGerwin\FilamentPageManager\Models\Page>
+     */
     public function siblings(): \Illuminate\Database\Eloquent\Collection
     {
         return static::where('parent_id', $this->parent_id)
@@ -143,6 +168,9 @@ class Page extends Model
         return new ($this->template)();
     }
 
+    /**
+     * @return array<int, array{name: string, url: string}>
+     */
     public function getBreadcrumbs(?string $locale = null): array
     {
         $breadcrumbs = [];
@@ -207,6 +235,10 @@ class Page extends Model
         return $clone;
     }
 
+    /**
+     * @param array<string, string> $slug
+     * @return array<string, string>
+     */
     protected function generateUniqueSlug(array $slug): array
     {
         $newSlug = [];

@@ -8,6 +8,10 @@ use IamGerwin\FilamentPageManager\Facades\FilamentPageManager;
 
 trait HasTranslations
 {
+    /**
+     * @param string $key
+     * @return mixed
+     */
     public function getAttributeValue($key)
     {
         if (! $this->isTranslatableAttribute($key)) {
@@ -17,6 +21,11 @@ trait HasTranslations
         return $this->getTranslation($key, app()->getLocale());
     }
 
+    /**
+     * @param string $key
+     * @param mixed $value
+     * @return $this
+     */
     public function setAttribute($key, $value)
     {
         if (! $this->isTranslatableAttribute($key)) {
@@ -30,6 +39,10 @@ trait HasTranslations
         return parent::setAttribute($key, $value);
     }
 
+    /**
+     * @param mixed $default
+     * @return mixed
+     */
     public function getTranslation(string $key, string $locale, $default = null)
     {
         $translations = $this->getTranslations($key);
@@ -47,6 +60,9 @@ trait HasTranslations
         return $translations[$locale];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function getTranslations(string $key): array
     {
         $value = parent::getAttributeValue($key);
@@ -58,6 +74,9 @@ trait HasTranslations
         return $value;
     }
 
+    /**
+     * @param mixed $value
+     */
     public function setTranslation(string $key, string $locale, $value): self
     {
         $translations = $this->getTranslations($key);
@@ -68,6 +87,9 @@ trait HasTranslations
         return $this;
     }
 
+    /**
+     * @param array<string, mixed> $translations
+     */
     public function setTranslations(string $key, array $translations): self
     {
         parent::setAttribute($key, $translations);
@@ -85,6 +107,9 @@ trait HasTranslations
         return $this;
     }
 
+    /**
+     * @return array<int, string>
+     */
     public function getTranslatedLocales(string $key): array
     {
         return array_keys($this->getTranslations($key));
@@ -95,11 +120,17 @@ trait HasTranslations
         return in_array($key, $this->getTranslatableAttributes());
     }
 
+    /**
+     * @return array<int, string>
+     */
     public function getTranslatableAttributes(): array
     {
         return $this->translatable ?? [];
     }
 
+    /**
+     * @return array<string, string>
+     */
     public function getLocales(): array
     {
         return FilamentPageManager::getLocales();
@@ -110,6 +141,10 @@ trait HasTranslations
         return isset($this->getTranslations($key)[$locale]);
     }
 
+    /**
+     * @param array<int, string>|null $except
+     * @return static
+     */
     public function replicate(?array $except = null)
     {
         $clone = parent::replicate($except);
@@ -121,6 +156,9 @@ trait HasTranslations
         return $clone;
     }
 
+    /**
+     * @param array<string, mixed> $array
+     */
     protected function isTranslatedArray(array $array): bool
     {
         if (empty($array)) {
