@@ -72,7 +72,7 @@ class Page extends Model
         return array_reverse($ancestors);
     }
 
-    public function descendants(): \Illuminate\Database\Eloquent\Collection
+    public function descendants(): \Illuminate\Support\Collection
     {
         $descendants = collect();
 
@@ -191,7 +191,8 @@ class Page extends Model
     {
         $clone = $this->replicate();
         $clone->name = $this->name.' (Copy)';
-        $clone->slug = $this->generateUniqueSlug($this->slug);
+        $slug = is_array($this->slug) ? $this->slug : [];
+        $clone->slug = $this->generateUniqueSlug($slug);
         $clone->active = false;
         $clone->save();
 
@@ -209,6 +210,24 @@ class Page extends Model
     protected function generateUniqueSlug(array $slug): array
     {
         $newSlug = [];
+
+        // If slug is empty, generate from name
+        if (empty($slug)) {
+            $locales = config('filament-page-manager.locales', ['en' => 'English']);
+            foreach (array_keys($locales) as $locale) {
+                $baseSlug = Str::slug($this->name . '-copy');
+                $counter = 1;
+                $uniqueSlug = $baseSlug;
+
+                while (static::where("slug->{$locale}", $uniqueSlug)->exists()) {
+                    $uniqueSlug = "{$baseSlug}-{$counter}";
+                    $counter++;
+                }
+
+                $newSlug[$locale] = $uniqueSlug;
+            }
+            return $newSlug;
+        }
 
         foreach ($slug as $locale => $value) {
             $baseSlug = Str::slug($value);

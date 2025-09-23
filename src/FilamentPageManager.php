@@ -61,8 +61,6 @@ class FilamentPageManager
 
         return Cache::remember($cacheKey, config('filament-page-manager.cache_ttl', 3600), function () use ($withDrafts) {
             $query = $this->getPageModel()::query()
-                ->with(['children'])
-                ->whereNull('parent_id')
                 ->orderBy('sort_order')
                 ->orderBy('name');
 
@@ -70,7 +68,8 @@ class FilamentPageManager
                 $query->where('active', true);
             }
 
-            return $this->buildTree($query->get());
+            $pages = $query->get();
+            return $this->buildTree($pages, null, $withDrafts);
         });
     }
 
@@ -166,17 +165,31 @@ class FilamentPageManager
         Cache::forget('filament-page-manager.pages_structure_with_drafts');
     }
 
-    protected function buildTree(Collection $elements, $parentId = null): array
+    protected function buildTree(Collection $elements, $parentId = null, bool $withDrafts = false): array
     {
         $tree = [];
 
         foreach ($elements as $element) {
             if ($element->parent_id == $parentId) {
-                $children = $this->buildTree($elements, $element->id);
-                if ($children) {
-                    $element->children = $children;
-                }
-                $tree[] = $element;
+                // Filter children based on draft status
+                $filteredChildren = $elements->filter(function ($child) use ($element, $withDrafts) {
+                    return $child->parent_id == $element->id && ($withDrafts || $child->active);
+                });
+
+                $children = $this->buildTree($elements, $element->id, $withDrafts);
+
+                $elementArray = [
+                    'id' => $element->id,
+                    'name' => $element->name,
+                    'slug' => $element->slug,
+                    'template' => $element->template,
+                    'parent_id' => $element->parent_id,
+                    'active' => $element->active,
+                    'sort_order' => $element->sort_order,
+                    'children' => $children,
+                ];
+
+                $tree[] = $elementArray;
             }
         }
 

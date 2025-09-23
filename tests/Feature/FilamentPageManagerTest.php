@@ -86,12 +86,12 @@ it('can get pages structure', function () {
     $structure = FilamentPageManager::getPagesStructure();
 
     expect($structure)->toHaveCount(1)
-        ->and($structure[0]->name)->toBe('Parent')
-        ->and($structure[0]->children)->toHaveCount(1);
+        ->and($structure[0]['name'])->toBe('Parent')
+        ->and($structure[0]['children'])->toHaveCount(1);
 
     $structureWithDrafts = FilamentPageManager::getPagesStructure(true);
 
-    expect($structureWithDrafts[0]->children)->toHaveCount(2);
+    expect($structureWithDrafts[0]['children'])->toHaveCount(2);
 });
 
 it('can get pages by template', function () {

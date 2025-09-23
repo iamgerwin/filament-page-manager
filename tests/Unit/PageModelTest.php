@@ -3,11 +3,25 @@
 declare(strict_types=1);
 
 use IamGerwin\FilamentPageManager\Models\Page;
+use IamGerwin\FilamentPageManager\Templates\AbstractPageTemplate;
+
+class TestTemplate extends AbstractPageTemplate
+{
+    public function name(): string
+    {
+        return 'Test Template';
+    }
+
+    public function fields(): array
+    {
+        return [];
+    }
+}
 
 it('can create a page', function () {
     $page = Page::create([
         'name' => 'Test Page',
-        'template' => 'TestTemplate',
+        'template' => TestTemplate::class,
         'active' => true,
         'slug' => ['en' => 'test-page', 'es' => 'pagina-prueba'],
         'data' => ['title' => 'Test Title'],
@@ -22,12 +36,12 @@ it('can create a page', function () {
 it('can have parent-child relationships', function () {
     $parent = Page::create([
         'name' => 'Parent Page',
-        'template' => 'TestTemplate',
+        'template' => TestTemplate::class,
     ]);
 
     $child = Page::create([
         'name' => 'Child Page',
-        'template' => 'TestTemplate',
+        'template' => TestTemplate::class,
         'parent_id' => $parent->id,
     ]);
 
@@ -40,18 +54,18 @@ it('can have parent-child relationships', function () {
 it('can get ancestors', function () {
     $grandparent = Page::create([
         'name' => 'Grandparent',
-        'template' => 'TestTemplate',
+        'template' => TestTemplate::class,
     ]);
 
     $parent = Page::create([
         'name' => 'Parent',
-        'template' => 'TestTemplate',
+        'template' => TestTemplate::class,
         'parent_id' => $grandparent->id,
     ]);
 
     $child = Page::create([
         'name' => 'Child',
-        'template' => 'TestTemplate',
+        'template' => TestTemplate::class,
         'parent_id' => $parent->id,
     ]);
 
@@ -65,24 +79,24 @@ it('can get ancestors', function () {
 it('can get descendants', function () {
     $parent = Page::create([
         'name' => 'Parent',
-        'template' => 'TestTemplate',
+        'template' => TestTemplate::class,
     ]);
 
     $child1 = Page::create([
         'name' => 'Child 1',
-        'template' => 'TestTemplate',
+        'template' => TestTemplate::class,
         'parent_id' => $parent->id,
     ]);
 
     $child2 = Page::create([
         'name' => 'Child 2',
-        'template' => 'TestTemplate',
+        'template' => TestTemplate::class,
         'parent_id' => $parent->id,
     ]);
 
     $grandchild = Page::create([
         'name' => 'Grandchild',
-        'template' => 'TestTemplate',
+        'template' => TestTemplate::class,
         'parent_id' => $child1->id,
     ]);
 
@@ -94,13 +108,13 @@ it('can get descendants', function () {
 it('can generate paths correctly', function () {
     $parent = Page::create([
         'name' => 'Products',
-        'template' => 'TestTemplate',
+        'template' => TestTemplate::class,
         'slug' => ['en' => 'products'],
     ]);
 
     $child = Page::create([
         'name' => 'Electronics',
-        'template' => 'TestTemplate',
+        'template' => TestTemplate::class,
         'parent_id' => $parent->id,
         'slug' => ['en' => 'electronics'],
     ]);
@@ -111,7 +125,7 @@ it('can generate paths correctly', function () {
 it('can be published and unpublished', function () {
     $page = Page::create([
         'name' => 'Test Page',
-        'template' => 'TestTemplate',
+        'template' => TestTemplate::class,
         'active' => false,
     ]);
 
@@ -132,7 +146,7 @@ it('can be published and unpublished', function () {
 it('can be duplicated', function () {
     $page = Page::create([
         'name' => 'Original Page',
-        'template' => 'TestTemplate',
+        'template' => TestTemplate::class,
         'slug' => ['en' => 'original-page'],
         'data' => ['content' => 'Original content'],
     ]);
@@ -149,7 +163,7 @@ it('can be duplicated', function () {
 it('can handle translations', function () {
     $page = Page::create([
         'name' => 'Multilingual Page',
-        'template' => 'TestTemplate',
+        'template' => TestTemplate::class,
         'slug' => [
             'en' => 'multilingual-page',
             'es' => 'pagina-multilingue',
