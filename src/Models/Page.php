@@ -257,7 +257,7 @@ class Page extends Model
         if (empty($slug)) {
             $locales = config('filament-page-manager.locales', ['en' => 'English']);
             foreach (array_keys($locales) as $locale) {
-                if (!is_string($locale)) {
+                if (! is_string($locale)) {
                     continue;
                 }
                 $baseSlug = Str::slug($this->name.'-copy');

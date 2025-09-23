@@ -30,6 +30,7 @@ trait HasTranslations
     {
         if (! $this->isTranslatableAttribute($key)) {
             parent::setAttribute($key, $value);
+
             return $this;
         }
 
@@ -38,6 +39,7 @@ trait HasTranslations
         }
 
         parent::setAttribute($key, $value);
+
         return $this;
     }
 
