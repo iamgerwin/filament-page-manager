@@ -27,7 +27,6 @@ use Illuminate\Support\Str;
  * @property-read \IamGerwin\FilamentPageManager\Models\Page|null $parent
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \IamGerwin\FilamentPageManager\Models\Page> $children
  */
-
 class Page extends Model
 {
     use HasFactory;
@@ -236,7 +235,7 @@ class Page extends Model
     }
 
     /**
-     * @param array<string, string> $slug
+     * @param  array<string, string>  $slug
      * @return array<string, string>
      */
     protected function generateUniqueSlug(array $slug): array

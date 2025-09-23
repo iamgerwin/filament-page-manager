@@ -9,7 +9,7 @@ use IamGerwin\FilamentPageManager\Facades\FilamentPageManager;
 trait HasTranslations
 {
     /**
-     * @param string $key
+     * @param  string  $key
      * @return mixed
      */
     public function getAttributeValue($key)
@@ -22,8 +22,8 @@ trait HasTranslations
     }
 
     /**
-     * @param string $key
-     * @param mixed $value
+     * @param  string  $key
+     * @param  mixed  $value
      * @return static
      */
     public function setAttribute($key, $value)
@@ -40,7 +40,7 @@ trait HasTranslations
     }
 
     /**
-     * @param mixed $default
+     * @param  mixed  $default
      * @return mixed
      */
     public function getTranslation(string $key, string $locale, $default = null)
@@ -75,7 +75,7 @@ trait HasTranslations
     }
 
     /**
-     * @param mixed $value
+     * @param  mixed  $value
      */
     public function setTranslation(string $key, string $locale, $value): self
     {
@@ -88,7 +88,7 @@ trait HasTranslations
     }
 
     /**
-     * @param array<string, mixed> $translations
+     * @param  array<string, mixed>  $translations
      */
     public function setTranslations(string $key, array $translations): self
     {
@@ -142,7 +142,7 @@ trait HasTranslations
     }
 
     /**
-     * @param array<int, string>|null $except
+     * @param  array<int, string>|null  $except
      * @return static
      */
     public function replicate(?array $except = null)
@@ -157,7 +157,7 @@ trait HasTranslations
     }
 
     /**
-     * @param array<string, mixed> $array
+     * @param  array<string, mixed>  $array
      */
     protected function isTranslatedArray(array $array): bool
     {

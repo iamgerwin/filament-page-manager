@@ -16,11 +16,6 @@ use Filament\Schemas\Components\Tabs\Tab;
 use Filament\Schemas\Schema;
 use Filament\Tables;
 use Filament\Tables\Actions\Action;
-use Filament\Tables\Actions\BulkAction;
-use Filament\Tables\Actions\BulkActionGroup;
-use Filament\Tables\Actions\DeleteAction;
-use Filament\Tables\Actions\DeleteBulkAction;
-use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Table;
 use IamGerwin\FilamentPageManager\Facades\FilamentPageManager;
 use IamGerwin\FilamentPageManager\Filament\Resources\PageResource\Pages as PagePages;
@@ -32,10 +27,8 @@ class PageResource extends Resource
 {
     protected static ?string $model = Page::class;
 
-    /** @var \BackedEnum|string|null */
     protected static \BackedEnum|string|null $navigationIcon = 'heroicon-o-document-text';
 
-    /** @var string|\UnitEnum|null */
     protected static string|\UnitEnum|null $navigationGroup = 'Content';
 
     protected static ?string $navigationLabel = 'Pages';
@@ -337,7 +330,7 @@ class PageResource extends Resource
     }
 
     /**
-     * @param array<string, mixed> $config
+     * @param  array<string, mixed>  $config
      */
     protected static function createSeoField(string $key, array $config, string $prefix): mixed
     {
@@ -366,7 +359,7 @@ class PageResource extends Resource
     }
 
     /**
-     * @param array<int, mixed> $fields
+     * @param  array<int, mixed>  $fields
      * @return array<int, mixed>
      */
     protected static function prefixFieldNames(array $fields, string $prefix): array

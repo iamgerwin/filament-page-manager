@@ -21,7 +21,7 @@ if (! function_exists('fpm_get_pages')) {
     /**
      * Get pages by templates.
      *
-     * @param array<int, string> $templates
+     * @param  array<int, string>  $templates
      * @return Collection<int, Page>
      */
     function fpm_get_pages(array $templates = [], bool $withDrafts = false): Collection
@@ -66,7 +66,7 @@ if (! function_exists('fpm_get_regions')) {
     /**
      * Get regions by templates.
      *
-     * @param array<int, string> $templates
+     * @param  array<int, string>  $templates
      * @return Collection<int, Region>
      */
     function fpm_get_regions(array $templates = []): Collection

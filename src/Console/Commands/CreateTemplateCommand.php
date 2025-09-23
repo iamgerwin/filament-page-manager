@@ -19,13 +19,15 @@ class CreateTemplateCommand extends Command
         $nameArg = $this->argument('name');
         $typeOption = $this->option('type');
 
-        if (!is_string($nameArg)) {
+        if (! is_string($nameArg)) {
             $this->error('Name argument is required and must be a string.');
+
             return self::FAILURE;
         }
 
-        if (!is_string($typeOption)) {
+        if (! is_string($typeOption)) {
             $this->error('Type option must be a string.');
+
             return self::FAILURE;
         }
 

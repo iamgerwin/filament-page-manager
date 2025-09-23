@@ -52,7 +52,7 @@ abstract class AbstractTemplate implements TemplateContract
     /**
      * Process the raw data before returning.
      *
-     * @param array<string, mixed> $data
+     * @param  array<string, mixed>  $data
      * @return array<string, mixed>
      */
     protected function processData(array $data, string $locale): array
@@ -137,7 +137,7 @@ abstract class AbstractTemplate implements TemplateContract
     /**
      * Wrap fields in a translatable container if needed.
      *
-     * @param array<int, mixed> $fields
+     * @param  array<int, mixed>  $fields
      * @return array<int, mixed>
      */
     protected function makeTranslatable(array $fields): array
@@ -163,7 +163,7 @@ abstract class AbstractTemplate implements TemplateContract
     /**
      * Clone fields for a specific locale.
      *
-     * @param array<int, mixed> $fields
+     * @param  array<int, mixed>  $fields
      * @return array<int, mixed>
      */
     protected function cloneFieldsForLocale(array $fields, string $locale): array
@@ -187,7 +187,7 @@ abstract class AbstractTemplate implements TemplateContract
     /**
      * Helper method to create a section with fields.
      *
-     * @param array<int, mixed> $fields
+     * @param  array<int, mixed>  $fields
      */
     protected function section(string $title, array $fields, ?string $description = null): Section
     {
@@ -204,7 +204,7 @@ abstract class AbstractTemplate implements TemplateContract
     /**
      * Helper method to create a group with fields.
      *
-     * @param array<int, mixed> $fields
+     * @param  array<int, mixed>  $fields
      */
     protected function group(array $fields): Group
     {

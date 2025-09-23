@@ -57,7 +57,7 @@ class FilamentPageManager
     }
 
     /**
-     * @param array<string, string> $locales
+     * @param  array<string, string>  $locales
      */
     public function setLocales(array $locales): void
     {
@@ -99,7 +99,7 @@ class FilamentPageManager
     }
 
     /**
-     * @param array<int, string> $templates
+     * @param  array<int, string>  $templates
      * @return Collection<int, Page>
      */
     public function getPages(array $templates = [], bool $withDrafts = false): Collection
@@ -136,7 +136,7 @@ class FilamentPageManager
     }
 
     /**
-     * @param array<int, string> $templates
+     * @param  array<int, string>  $templates
      * @return Collection<int, Region>
      */
     public function getRegions(array $templates = []): Collection
@@ -205,8 +205,8 @@ class FilamentPageManager
     }
 
     /**
-     * @param Collection<int, Page> $elements
-     * @param int|null $parentId
+     * @param  Collection<int, Page>  $elements
+     * @param  int|null  $parentId
      * @return array<int, array<string, mixed>>
      */
     protected function buildTree(Collection $elements, $parentId = null, bool $withDrafts = false): array

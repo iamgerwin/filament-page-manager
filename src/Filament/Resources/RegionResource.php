@@ -14,10 +14,6 @@ use Filament\Schemas\Components\Tabs\Tab;
 use Filament\Schemas\Schema;
 use Filament\Tables;
 use Filament\Tables\Actions\Action;
-use Filament\Tables\Actions\BulkActionGroup;
-use Filament\Tables\Actions\DeleteAction;
-use Filament\Tables\Actions\DeleteBulkAction;
-use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Table;
 use IamGerwin\FilamentPageManager\Facades\FilamentPageManager;
 use IamGerwin\FilamentPageManager\Filament\Resources\RegionResource\Pages as RegionPages;
@@ -28,10 +24,8 @@ class RegionResource extends Resource
 {
     protected static ?string $model = Region::class;
 
-    /** @var \BackedEnum|string|null */
     protected static \BackedEnum|string|null $navigationIcon = 'heroicon-o-rectangle-group';
 
-    /** @var string|\UnitEnum|null */
     protected static string|\UnitEnum|null $navigationGroup = 'Content';
 
     protected static ?string $navigationLabel = 'Regions';
@@ -194,7 +188,7 @@ class RegionResource extends Resource
     }
 
     /**
-     * @param array<int, mixed> $fields
+     * @param  array<int, mixed>  $fields
      * @return array<int, mixed>
      */
     protected static function prefixFieldNames(array $fields, string $prefix): array
