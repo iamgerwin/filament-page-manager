@@ -36,6 +36,21 @@ You can install the package via composer:
 composer require iamgerwin/filament-page-manager
 ```
 
+Register the plugin in your Panel provider (e.g., `app/Providers/Filament/AdminPanelProvider.php`):
+
+```php
+use IamGerwin\FilamentPageManager\FilamentPageManagerPlugin;
+
+public function panel(Panel $panel): Panel
+{
+    return $panel
+        // ... other configuration
+        ->plugins([
+            FilamentPageManagerPlugin::make(),
+        ]);
+}
+```
+
 You can publish and run the migrations with:
 
 ```bash

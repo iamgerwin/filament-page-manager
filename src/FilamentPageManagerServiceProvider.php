@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace IamGerwin\FilamentPageManager;
 
-use Filament\Contracts\Plugin;
-use Filament\Panel;
 use Filament\Support\Assets\Css;
 use Filament\Support\Facades\FilamentAsset;
 use IamGerwin\FilamentPageManager\Console\Commands\CreateTemplateCommand;
@@ -13,7 +11,7 @@ use IamGerwin\FilamentPageManager\Facades\FilamentPageManager;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
-class FilamentPageManagerServiceProvider extends PackageServiceProvider implements Plugin
+class FilamentPageManagerServiceProvider extends PackageServiceProvider
 {
     public function configurePackage(Package $package): void
     {
@@ -64,35 +62,5 @@ class FilamentPageManagerServiceProvider extends PackageServiceProvider implemen
         $this->publishes([
             __DIR__ . '/../stubs' => base_path('stubs/filament-page-manager'),
         ], 'filament-page-manager-stubs');
-    }
-
-    public function getId(): string
-    {
-        return 'filament-page-manager';
-    }
-
-    public function register(Panel $panel): void
-    {
-        if (config('filament-page-manager.features.pages', true)) {
-            $panel->resources([
-                config('filament-page-manager.resources.page'),
-            ]);
-        }
-
-        if (config('filament-page-manager.features.regions', true)) {
-            $panel->resources([
-                config('filament-page-manager.resources.region'),
-            ]);
-        }
-    }
-
-    public function boot(Panel $panel): void
-    {
-        // Additional boot logic if needed
-    }
-
-    public static function make(): static
-    {
-        return new static();
     }
 }
