@@ -4,15 +4,20 @@ declare(strict_types=1);
 
 namespace IamGerwin\FilamentPageManager\Filament\Resources;
 
-use Filament\Forms\Components\Component;
+use Filament\Forms;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Resources\Resource;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Tabs;
+use Filament\Schemas\Components\Tabs\Tab;
 use Filament\Schemas\Schema;
-use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Actions\Action;
+use Filament\Tables\Actions\BulkActionGroup;
+use Filament\Tables\Actions\DeleteAction;
+use Filament\Tables\Actions\DeleteBulkAction;
+use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Table;
 use IamGerwin\FilamentPageManager\Facades\FilamentPageManager;
 use IamGerwin\FilamentPageManager\Filament\Resources\RegionResource\Pages as RegionPages;
@@ -23,9 +28,11 @@ class RegionResource extends Resource
 {
     protected static ?string $model = Region::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-group';
+    /** @var \BackedEnum|string|null */
+    protected static \BackedEnum|string|null $navigationIcon = 'heroicon-o-rectangle-group';
 
-    protected static ?string $navigationGroup = 'Content';
+    /** @var string|\UnitEnum|null */
+    protected static string|\UnitEnum|null $navigationGroup = 'Content';
 
     protected static ?string $navigationLabel = 'Regions';
 
@@ -156,7 +163,7 @@ class RegionResource extends Resource
     }
 
     /**
-     * @return array<int, \Filament\Forms\Components\Component>
+     * @return array<int, mixed>
      */
     protected static function getTemplateFields(?Model $record, callable $get): array
     {
@@ -176,7 +183,7 @@ class RegionResource extends Resource
 
         $tabs = [];
         foreach ($locales as $locale => $label) {
-            $tabs[] = Tabs\Tab::make($label)
+            $tabs[] = Tab::make($label)
                 ->schema(static::prefixFieldNames($fields, "data.{$locale}"));
         }
 
@@ -187,13 +194,13 @@ class RegionResource extends Resource
     }
 
     /**
-     * @param array<int, \Filament\Forms\Components\Component> $fields
-     * @return array<int, \Filament\Forms\Components\Component>
+     * @param array<int, mixed> $fields
+     * @return array<int, mixed>
      */
     protected static function prefixFieldNames(array $fields, string $prefix): array
     {
         return array_map(function ($field) use ($prefix) {
-            if ($field instanceof Component && $field->getName()) {
+            if ($field instanceof Forms\Components\Component && method_exists($field, 'getName') && $field->getName()) {
                 $originalName = $field->getName();
                 if (! str_starts_with($originalName, $prefix.'.')) {
                     $field->name("{$prefix}.{$originalName}");

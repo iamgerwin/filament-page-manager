@@ -21,7 +21,7 @@ interface TemplateContract
     /**
      * Get the form fields for this template.
      *
-     * @return array<int, \Filament\Forms\Components\Component>
+     * @return array<int, mixed>
      */
     public function fields(): array;
 

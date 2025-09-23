@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace IamGerwin\FilamentPageManager\Templates;
 
-use Filament\Forms\Components\Component;
+use Filament\Forms;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Group;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Tabs;
+use Filament\Schemas\Components\Tabs\Tab;
 use IamGerwin\FilamentPageManager\Contracts\TemplateContract;
 use IamGerwin\FilamentPageManager\Facades\FilamentPageManager;
 use Illuminate\Database\Eloquent\Model;
@@ -23,7 +24,7 @@ abstract class AbstractTemplate implements TemplateContract
     /**
      * Get the form fields for this template.
      *
-     * @return array<int, \Filament\Forms\Components\Component>
+     * @return array<int, mixed>
      */
     abstract public function fields(): array;
 
@@ -94,7 +95,7 @@ abstract class AbstractTemplate implements TemplateContract
     /**
      * Get SEO fields if enabled.
      *
-     * @return array<int, \Filament\Forms\Components\Component>
+     * @return array<int, mixed>
      */
     public function seoFields(): array
     {
@@ -136,8 +137,8 @@ abstract class AbstractTemplate implements TemplateContract
     /**
      * Wrap fields in a translatable container if needed.
      *
-     * @param array<int, \Filament\Forms\Components\Component> $fields
-     * @return array<int, \Filament\Forms\Components\Component>
+     * @param array<int, mixed> $fields
+     * @return array<int, mixed>
      */
     protected function makeTranslatable(array $fields): array
     {
@@ -149,7 +150,7 @@ abstract class AbstractTemplate implements TemplateContract
 
         $tabs = [];
         foreach ($locales as $locale => $label) {
-            $tabs[] = Tabs\Tab::make($label)
+            $tabs[] = Tab::make($label)
                 ->schema($this->cloneFieldsForLocale($fields, $locale));
         }
 
@@ -162,15 +163,15 @@ abstract class AbstractTemplate implements TemplateContract
     /**
      * Clone fields for a specific locale.
      *
-     * @param array<int, \Filament\Forms\Components\Component> $fields
-     * @return array<int, \Filament\Forms\Components\Component>
+     * @param array<int, mixed> $fields
+     * @return array<int, mixed>
      */
     protected function cloneFieldsForLocale(array $fields, string $locale): array
     {
         $cloned = [];
 
         foreach ($fields as $field) {
-            if ($field instanceof Component) {
+            if ($field instanceof Forms\Components\Component) {
                 $clonedField = clone $field;
                 $name = $clonedField->getName();
                 if ($name && ! str_starts_with($name, 'data.')) {
@@ -186,9 +187,9 @@ abstract class AbstractTemplate implements TemplateContract
     /**
      * Helper method to create a section with fields.
      *
-     * @param array<int, \Filament\Forms\Components\Component> $fields
+     * @param array<int, mixed> $fields
      */
-    protected function section(string $title, array $fields, ?string $description = null): \Filament\Schemas\Components\Section
+    protected function section(string $title, array $fields, ?string $description = null): Section
     {
         $section = Section::make($title)
             ->schema($fields);
@@ -203,9 +204,9 @@ abstract class AbstractTemplate implements TemplateContract
     /**
      * Helper method to create a group with fields.
      *
-     * @param array<int, \Filament\Forms\Components\Component> $fields
+     * @param array<int, mixed> $fields
      */
-    protected function group(array $fields): \Filament\Schemas\Components\Group
+    protected function group(array $fields): Group
     {
         return Group::make($fields);
     }

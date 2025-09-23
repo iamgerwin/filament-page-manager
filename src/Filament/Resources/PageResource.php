@@ -5,17 +5,22 @@ declare(strict_types=1);
 namespace IamGerwin\FilamentPageManager\Filament\Resources;
 
 use Filament\Forms;
-use Filament\Forms\Components\Component;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
+use Filament\Resources\Resource;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Tabs;
+use Filament\Schemas\Components\Tabs\Tab;
 use Filament\Schemas\Schema;
-use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Actions\Action;
+use Filament\Tables\Actions\BulkAction;
+use Filament\Tables\Actions\BulkActionGroup;
+use Filament\Tables\Actions\DeleteAction;
+use Filament\Tables\Actions\DeleteBulkAction;
+use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Table;
 use IamGerwin\FilamentPageManager\Facades\FilamentPageManager;
 use IamGerwin\FilamentPageManager\Filament\Resources\PageResource\Pages as PagePages;
@@ -27,9 +32,11 @@ class PageResource extends Resource
 {
     protected static ?string $model = Page::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-document-text';
+    /** @var \BackedEnum|string|null */
+    protected static \BackedEnum|string|null $navigationIcon = 'heroicon-o-document-text';
 
-    protected static ?string $navigationGroup = 'Content';
+    /** @var string|\UnitEnum|null */
+    protected static string|\UnitEnum|null $navigationGroup = 'Content';
 
     protected static ?string $navigationLabel = 'Pages';
 
@@ -94,7 +101,7 @@ class PageResource extends Resource
                         $tabs = [];
 
                         foreach ($locales as $locale => $label) {
-                            $tabs[] = Tabs\Tab::make($label)
+                            $tabs[] = Tab::make($label)
                                 ->schema([
                                     TextInput::make("slug.{$locale}")
                                         ->label('Slug')
@@ -268,7 +275,7 @@ class PageResource extends Resource
     }
 
     /**
-     * @return array<int, \Filament\Forms\Components\Component>
+     * @return array<int, mixed>
      */
     protected static function getTemplateFields(?Model $record, callable $get): array
     {
@@ -288,7 +295,7 @@ class PageResource extends Resource
 
         $tabs = [];
         foreach ($locales as $locale => $label) {
-            $tabs[] = Tabs\Tab::make($label)
+            $tabs[] = Tab::make($label)
                 ->schema(static::prefixFieldNames($fields, "data.{$locale}"));
         }
 
@@ -299,7 +306,7 @@ class PageResource extends Resource
     }
 
     /**
-     * @return array<int, \Filament\Forms\Components\Component>
+     * @return array<int, mixed>
      */
     protected static function getSeoFields(): array
     {
@@ -321,7 +328,7 @@ class PageResource extends Resource
             foreach ($seoConfig as $key => $config) {
                 $localeFields[] = static::createSeoField($key, $config, "seo.{$locale}");
             }
-            $tabs[] = Tabs\Tab::make($label)->schema($localeFields);
+            $tabs[] = Tab::make($label)->schema($localeFields);
         }
 
         return [
@@ -332,7 +339,7 @@ class PageResource extends Resource
     /**
      * @param array<string, mixed> $config
      */
-    protected static function createSeoField(string $key, array $config, string $prefix): Component
+    protected static function createSeoField(string $key, array $config, string $prefix): mixed
     {
         $name = "{$prefix}.{$key}";
 
@@ -359,13 +366,13 @@ class PageResource extends Resource
     }
 
     /**
-     * @param array<int, \Filament\Forms\Components\Component> $fields
-     * @return array<int, \Filament\Forms\Components\Component>
+     * @param array<int, mixed> $fields
+     * @return array<int, mixed>
      */
     protected static function prefixFieldNames(array $fields, string $prefix): array
     {
         return array_map(function ($field) use ($prefix) {
-            if ($field instanceof Component && $field->getName()) {
+            if ($field instanceof Forms\Components\Component && method_exists($field, 'getName') && $field->getName()) {
                 $originalName = $field->getName();
                 if (! str_starts_with($originalName, $prefix.'.')) {
                     $field->name("{$prefix}.{$originalName}");
