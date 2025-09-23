@@ -22,12 +22,14 @@ interface TemplateContract
     /**
      * Get the form fields for this template.
      *
-     * @return array<Component>
+     * @return array<int, \Filament\Forms\Components\Component>
      */
     public function fields(): array;
 
     /**
      * Resolve the data for frontend consumption.
+     *
+     * @return array<string, mixed>
      */
     public function resolve(Model $model, ?string $locale = null): array;
 

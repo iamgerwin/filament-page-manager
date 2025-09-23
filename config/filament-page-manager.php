@@ -129,10 +129,11 @@ return [
     |--------------------------------------------------------------------------
     |
     | Configure how page paths are generated.
+    | Note: Set base_url in your .env file as APP_URL or directly here.
     |
     */
     'paths' => [
-        'base_url' => env('APP_URL', ''),
+        'base_url' => '', // Set this to config('app.url') in your application
         'prefix' => '',
         'suffix' => '',
         'use_template_suffix' => true,

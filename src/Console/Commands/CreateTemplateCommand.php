@@ -16,9 +16,9 @@ class CreateTemplateCommand extends Command
 
     public function handle(): int
     {
-        $name = $this->argument('name');
-        $type = $this->option('type');
-        $force = $this->option('force');
+        $name = (string) $this->argument('name');
+        $type = (string) $this->option('type');
+        $force = (bool) $this->option('force');
 
         if (! in_array($type, ['page', 'region'])) {
             $this->error('Invalid template type. Must be "page" or "region".');
