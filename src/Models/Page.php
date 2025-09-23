@@ -26,12 +26,14 @@ use Illuminate\Support\Str;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \IamGerwin\FilamentPageManager\Models\Page|null $parent
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \IamGerwin\FilamentPageManager\Models\Page> $children
+ *
  * @phpstan-use HasFactory<\Illuminate\Database\Eloquent\Factories\Factory<static>>
  */
 class Page extends Model
 {
     /** @use HasFactory<\Illuminate\Database\Eloquent\Factories\Factory<static>> */
     use HasFactory;
+
     use HasTranslations;
 
     protected $guarded = ['id'];
