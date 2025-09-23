@@ -20,6 +20,9 @@ if (! function_exists('fpm')) {
 if (! function_exists('fpm_get_pages')) {
     /**
      * Get pages by templates.
+     *
+     * @param array<int, string> $templates
+     * @return Collection<int, Page>
      */
     function fpm_get_pages(array $templates = [], bool $withDrafts = false): Collection
     {
@@ -50,6 +53,8 @@ if (! function_exists('fpm_get_page_by_template')) {
 if (! function_exists('fpm_get_pages_structure')) {
     /**
      * Get the hierarchical structure of pages.
+     *
+     * @return array<int, array<string, mixed>>
      */
     function fpm_get_pages_structure(bool $withDrafts = false): array
     {
@@ -60,6 +65,9 @@ if (! function_exists('fpm_get_pages_structure')) {
 if (! function_exists('fpm_get_regions')) {
     /**
      * Get regions by templates.
+     *
+     * @param array<int, string> $templates
+     * @return Collection<int, Region>
      */
     function fpm_get_regions(array $templates = []): Collection
     {
@@ -80,6 +88,8 @@ if (! function_exists('fpm_get_region')) {
 if (! function_exists('fpm_format_page')) {
     /**
      * Format a page for frontend consumption.
+     *
+     * @return array<string, mixed>
      */
     function fpm_format_page(Page $page, ?string $locale = null): array
     {
@@ -90,6 +100,8 @@ if (! function_exists('fpm_format_page')) {
 if (! function_exists('fpm_format_region')) {
     /**
      * Format a region for frontend consumption.
+     *
+     * @return array<string, mixed>
      */
     function fpm_format_region(Region $region, ?string $locale = null): array
     {
@@ -100,6 +112,8 @@ if (! function_exists('fpm_format_region')) {
 if (! function_exists('fpm_get_locales')) {
     /**
      * Get configured locales.
+     *
+     * @return array<string, string>
      */
     function fpm_get_locales(): array
     {

@@ -9,7 +9,7 @@ use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Form;
+use Filament\Schemas\Schema;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Actions\Action;
@@ -36,9 +36,9 @@ class RegionResource extends Resource
         return config('filament-page-manager.models.region', Region::class);
     }
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
+        return $schema
             ->schema([
                 Section::make('Basic Information')
                     ->schema([
@@ -94,7 +94,7 @@ class RegionResource extends Resource
                     ->label('Template')
                     ->options(static::getTemplateOptions()),
             ])
-            ->actions([
+            ->recordActions([
                 Tables\Actions\EditAction::make(),
 
                 Action::make('duplicate')
@@ -105,7 +105,7 @@ class RegionResource extends Resource
 
                 Tables\Actions\DeleteAction::make(),
             ])
-            ->bulkActions([
+            ->toolbarActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
@@ -128,6 +128,9 @@ class RegionResource extends Resource
         ];
     }
 
+    /**
+     * @return array<string, string>
+     */
     protected static function getTemplateOptions(): array
     {
         $templates = FilamentPageManager::getRegionTemplates();
@@ -152,6 +155,9 @@ class RegionResource extends Resource
         return $template->name();
     }
 
+    /**
+     * @return array<int, \Filament\Forms\Components\Component>
+     */
     protected static function getTemplateFields(?Model $record, callable $get): array
     {
         $templateClass = $record?->template ?? $get('template');
@@ -180,6 +186,10 @@ class RegionResource extends Resource
         ];
     }
 
+    /**
+     * @param array<int, \Filament\Forms\Components\Component> $fields
+     * @return array<int, \Filament\Forms\Components\Component>
+     */
     protected static function prefixFieldNames(array $fields, string $prefix): array
     {
         return array_map(function ($field) use ($prefix) {

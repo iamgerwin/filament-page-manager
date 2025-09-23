@@ -23,7 +23,7 @@ abstract class AbstractTemplate implements TemplateContract
     /**
      * Get the form fields for this template.
      *
-     * @return array<Component>
+     * @return array<int, \Filament\Forms\Components\Component>
      */
     abstract public function fields(): array;
 
@@ -37,6 +37,8 @@ abstract class AbstractTemplate implements TemplateContract
 
     /**
      * Resolve the data for frontend consumption.
+     *
+     * @return array<string, mixed>
      */
     public function resolve(Model $model, ?string $locale = null): array
     {
@@ -48,6 +50,9 @@ abstract class AbstractTemplate implements TemplateContract
 
     /**
      * Process the raw data before returning.
+     *
+     * @param array<string, mixed> $data
+     * @return array<string, mixed>
      */
     protected function processData(array $data, string $locale): array
     {
@@ -89,7 +94,7 @@ abstract class AbstractTemplate implements TemplateContract
     /**
      * Get SEO fields if enabled.
      *
-     * @return array<Component>
+     * @return array<int, \Filament\Forms\Components\Component>
      */
     public function seoFields(): array
     {
@@ -130,6 +135,9 @@ abstract class AbstractTemplate implements TemplateContract
 
     /**
      * Wrap fields in a translatable container if needed.
+     *
+     * @param array<int, \Filament\Forms\Components\Component> $fields
+     * @return array<int, \Filament\Forms\Components\Component>
      */
     protected function makeTranslatable(array $fields): array
     {
@@ -153,6 +161,9 @@ abstract class AbstractTemplate implements TemplateContract
 
     /**
      * Clone fields for a specific locale.
+     *
+     * @param array<int, \Filament\Forms\Components\Component> $fields
+     * @return array<int, \Filament\Forms\Components\Component>
      */
     protected function cloneFieldsForLocale(array $fields, string $locale): array
     {
@@ -174,6 +185,8 @@ abstract class AbstractTemplate implements TemplateContract
 
     /**
      * Helper method to create a section with fields.
+     *
+     * @param array<int, \Filament\Forms\Components\Component> $fields
      */
     protected function section(string $title, array $fields, ?string $description = null): Section
     {
@@ -189,6 +202,8 @@ abstract class AbstractTemplate implements TemplateContract
 
     /**
      * Helper method to create a group with fields.
+     *
+     * @param array<int, \Filament\Forms\Components\Component> $fields
      */
     protected function group(array $fields): Group
     {

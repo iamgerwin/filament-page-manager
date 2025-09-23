@@ -12,7 +12,7 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
-use Filament\Forms\Form;
+use Filament\Schemas\Schema;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Actions\Action;
@@ -40,9 +40,9 @@ class PageResource extends Resource
         return config('filament-page-manager.models.page', Page::class);
     }
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
+        return $schema
             ->schema([
                 Grid::make(2)
                     ->schema([
@@ -183,7 +183,7 @@ class PageResource extends Resource
                     ->searchable()
                     ->preload(),
             ])
-            ->actions([
+            ->recordActions([
                 Action::make('view')
                     ->label('View')
                     ->icon('heroicon-o-eye')
@@ -201,7 +201,7 @@ class PageResource extends Resource
 
                 Tables\Actions\DeleteAction::make(),
             ])
-            ->bulkActions([
+            ->toolbarActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
 
@@ -240,6 +240,9 @@ class PageResource extends Resource
         ];
     }
 
+    /**
+     * @return array<string, string>
+     */
     protected static function getTemplateOptions(): array
     {
         $templates = FilamentPageManager::getPageTemplates();
@@ -264,6 +267,9 @@ class PageResource extends Resource
         return $template->name();
     }
 
+    /**
+     * @return array<int, \Filament\Forms\Components\Component>
+     */
     protected static function getTemplateFields(?Model $record, callable $get): array
     {
         $templateClass = $record?->template ?? $get('template');
@@ -292,6 +298,9 @@ class PageResource extends Resource
         ];
     }
 
+    /**
+     * @return array<int, \Filament\Forms\Components\Component>
+     */
     protected static function getSeoFields(): array
     {
         $seoConfig = config('filament-page-manager.seo.fields', []);
@@ -320,6 +329,9 @@ class PageResource extends Resource
         ];
     }
 
+    /**
+     * @param array<string, mixed> $config
+     */
     protected static function createSeoField(string $key, array $config, string $prefix): Component
     {
         $name = "{$prefix}.{$key}";
@@ -346,6 +358,10 @@ class PageResource extends Resource
         };
     }
 
+    /**
+     * @param array<int, \Filament\Forms\Components\Component> $fields
+     * @return array<int, \Filament\Forms\Components\Component>
+     */
     protected static function prefixFieldNames(array $fields, string $prefix): array
     {
         return array_map(function ($field) use ($prefix) {

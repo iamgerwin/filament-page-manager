@@ -11,8 +11,14 @@ use Illuminate\Support\Facades\Cache;
 
 class FilamentPageManager
 {
+    /**
+     * @var array<int, string>
+     */
     protected array $templates = [];
 
+    /**
+     * @var array<string, string>
+     */
     protected array $locales = [];
 
     public function registerTemplate(string $templateClass): void
@@ -20,6 +26,9 @@ class FilamentPageManager
         $this->templates[] = $templateClass;
     }
 
+    /**
+     * @return array<int, string>
+     */
     public function getTemplates(?string $type = null): array
     {
         if ($type === null) {
@@ -31,21 +40,33 @@ class FilamentPageManager
         });
     }
 
+    /**
+     * @return array<int, string>
+     */
     public function getPageTemplates(): array
     {
         return $this->getTemplates('page');
     }
 
+    /**
+     * @return array<int, string>
+     */
     public function getRegionTemplates(): array
     {
         return $this->getTemplates('region');
     }
 
+    /**
+     * @param array<string, string> $locales
+     */
     public function setLocales(array $locales): void
     {
         $this->locales = $locales;
     }
 
+    /**
+     * @return array<string, string>
+     */
     public function getLocales(): array
     {
         if (empty($this->locales)) {
@@ -55,6 +76,9 @@ class FilamentPageManager
         return $this->locales;
     }
 
+    /**
+     * @return array<int, array<string, mixed>>
+     */
     public function getPagesStructure(bool $withDrafts = false): array
     {
         $cacheKey = 'filament-page-manager.pages_structure'.($withDrafts ? '_with_drafts' : '');
@@ -74,6 +98,10 @@ class FilamentPageManager
         });
     }
 
+    /**
+     * @param array<int, string> $templates
+     * @return Collection<int, Page>
+     */
     public function getPages(array $templates = [], bool $withDrafts = false): Collection
     {
         $query = $this->getPageModel()::query();
@@ -107,6 +135,10 @@ class FilamentPageManager
             ->first();
     }
 
+    /**
+     * @param array<int, string> $templates
+     * @return Collection<int, Region>
+     */
     public function getRegions(array $templates = []): Collection
     {
         $query = $this->getRegionModel()::query();
@@ -125,6 +157,9 @@ class FilamentPageManager
             ->first();
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function formatPage(Page $page, ?string $locale = null): array
     {
         $locale = $locale ?? app()->getLocale();
@@ -145,6 +180,9 @@ class FilamentPageManager
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function formatRegion(Region $region, ?string $locale = null): array
     {
         $locale = $locale ?? app()->getLocale();
@@ -166,6 +204,11 @@ class FilamentPageManager
         Cache::forget('filament-page-manager.pages_structure_with_drafts');
     }
 
+    /**
+     * @param Collection<int, Page> $elements
+     * @param int|null $parentId
+     * @return array<int, array<string, mixed>>
+     */
     protected function buildTree(Collection $elements, $parentId = null, bool $withDrafts = false): array
     {
         $tree = [];

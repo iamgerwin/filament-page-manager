@@ -16,8 +16,21 @@ class CreateTemplateCommand extends Command
 
     public function handle(): int
     {
-        $name = (string) $this->argument('name');
-        $type = (string) $this->option('type');
+        $nameArg = $this->argument('name');
+        $typeOption = $this->option('type');
+
+        if (!is_string($nameArg)) {
+            $this->error('Name argument is required and must be a string.');
+            return self::FAILURE;
+        }
+
+        if (!is_string($typeOption)) {
+            $this->error('Type option must be a string.');
+            return self::FAILURE;
+        }
+
+        $name = $nameArg;
+        $type = $typeOption;
         $force = (bool) $this->option('force');
 
         if (! in_array($type, ['page', 'region'])) {
