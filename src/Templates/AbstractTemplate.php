@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace IamGerwin\FilamentPageManager\Templates;
 
 use Filament\Forms\Components\Component;
-use Filament\Forms\Components\Group;
-use Filament\Forms\Components\Section;
-use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Components\Group;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Tabs;
 use IamGerwin\FilamentPageManager\Contracts\TemplateContract;
 use IamGerwin\FilamentPageManager\Facades\FilamentPageManager;
 use Illuminate\Database\Eloquent\Model;
@@ -188,7 +188,7 @@ abstract class AbstractTemplate implements TemplateContract
      *
      * @param array<int, \Filament\Forms\Components\Component> $fields
      */
-    protected function section(string $title, array $fields, ?string $description = null): Section
+    protected function section(string $title, array $fields, ?string $description = null): \Filament\Schemas\Components\Section
     {
         $section = Section::make($title)
             ->schema($fields);
@@ -205,7 +205,7 @@ abstract class AbstractTemplate implements TemplateContract
      *
      * @param array<int, \Filament\Forms\Components\Component> $fields
      */
-    protected function group(array $fields): Group
+    protected function group(array $fields): \Filament\Schemas\Components\Group
     {
         return Group::make($fields);
     }

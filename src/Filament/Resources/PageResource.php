@@ -6,12 +6,12 @@ namespace IamGerwin\FilamentPageManager\Filament\Resources;
 
 use Filament\Forms;
 use Filament\Forms\Components\Component;
-use Filament\Forms\Components\Grid;
-use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
+use Filament\Schemas\Components\Grid;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Tabs;
 use Filament\Schemas\Schema;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -27,9 +27,9 @@ class PageResource extends Resource
 {
     protected static ?string $model = Page::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-document-text';
+    protected static string $navigationIcon = 'heroicon-o-document-text';
 
-    protected static ?string $navigationGroup = 'Content';
+    protected static string $navigationGroup = 'Content';
 
     protected static ?string $navigationLabel = 'Pages';
 

@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace IamGerwin\FilamentPageManager\Filament\Resources;
 
 use Filament\Forms\Components\Component;
-use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Tabs;
 use Filament\Schemas\Schema;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -23,9 +23,9 @@ class RegionResource extends Resource
 {
     protected static ?string $model = Region::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-group';
+    protected static string $navigationIcon = 'heroicon-o-rectangle-group';
 
-    protected static ?string $navigationGroup = 'Content';
+    protected static string $navigationGroup = 'Content';
 
     protected static ?string $navigationLabel = 'Regions';
 
