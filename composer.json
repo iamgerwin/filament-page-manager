@@ -30,8 +30,6 @@
         "filament/infolists": "^4.0",
         "filament/widgets": "^4.0",
         "spatie/laravel-package-tools": "^1.16",
-        "spatie/laravel-sluggable": "^3.6",
-        "spatie/laravel-translatable": "^6.6",
         "illuminate/contracts": "^11.0||^12.0"
     },
     "require-dev": {

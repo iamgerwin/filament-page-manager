@@ -73,8 +73,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - PHP 8.3+ with modern language features
 - Laravel 11.0+ framework
 - Filament 4.0+ admin panel
-- Spatie Laravel Translatable for multilingual support
-- Spatie Laravel Sluggable for URL generation
+- Spatie Laravel Package Tools for package development
 
 #### Documentation
 - Comprehensive README with installation guide

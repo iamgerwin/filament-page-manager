@@ -11,13 +11,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
-use Spatie\Sluggable\HasSlug;
-use Spatie\Sluggable\SlugOptions;
 
 class Page extends Model
 {
     use HasFactory;
-    use HasSlug;
     use HasTranslations;
 
     protected $guarded = ['id'];
@@ -50,14 +47,6 @@ class Page extends Model
     public function getTable(): string
     {
         return config('filament-page-manager.tables.pages', 'fpm_pages');
-    }
-
-    public function getSlugOptions(): SlugOptions
-    {
-        return SlugOptions::create()
-            ->generateSlugsFrom('name')
-            ->saveSlugsTo('slug.'.config('filament-page-manager.default_locale', 'en'))
-            ->doNotGenerateSlugsOnUpdate();
     }
 
     public function parent(): BelongsTo
