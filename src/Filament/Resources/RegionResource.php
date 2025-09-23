@@ -23,9 +23,9 @@ class RegionResource extends Resource
 {
     protected static ?string $model = Region::class;
 
-    protected static string $navigationIcon = 'heroicon-o-rectangle-group';
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-group';
 
-    protected static string $navigationGroup = 'Content';
+    protected static ?string $navigationGroup = 'Content';
 
     protected static ?string $navigationLabel = 'Regions';
 
