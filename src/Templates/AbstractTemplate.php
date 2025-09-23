@@ -44,7 +44,17 @@ abstract class AbstractTemplate implements TemplateContract
     public function resolve(Model $model, ?string $locale = null): array
     {
         $locale = $locale ?? app()->getLocale();
-        $data = $model->getTranslation('data', $locale, []);
+
+        // Check if model has getTranslation method (HasTranslations trait)
+        if (method_exists($model, 'getTranslation')) {
+            $data = $model->getTranslation('data', $locale, []);
+        } else {
+            // Fallback to direct attribute access
+            $data = $model->getAttribute('data') ?? [];
+            if (is_array($data) && isset($data[$locale])) {
+                $data = $data[$locale];
+            }
+        }
 
         return $this->processData($data, $locale);
     }

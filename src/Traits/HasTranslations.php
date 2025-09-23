@@ -29,14 +29,16 @@ trait HasTranslations
     public function setAttribute($key, $value)
     {
         if (! $this->isTranslatableAttribute($key)) {
-            return parent::setAttribute($key, $value);
+            parent::setAttribute($key, $value);
+            return $this;
         }
 
         if (is_array($value) && ! $this->isTranslatedArray($value)) {
             return $this->setTranslation($key, app()->getLocale(), $value);
         }
 
-        return parent::setAttribute($key, $value);
+        parent::setAttribute($key, $value);
+        return $this;
     }
 
     /**
@@ -125,7 +127,7 @@ trait HasTranslations
      */
     public function getTranslatableAttributes(): array
     {
-        return $this->translatable ?? [];
+        return property_exists($this, 'translatable') && is_array($this->translatable) ? $this->translatable : [];
     }
 
     /**

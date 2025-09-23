@@ -272,6 +272,7 @@ class PageResource extends Resource
      */
     protected static function getTemplateFields(?Model $record, callable $get): array
     {
+        /** @var Page|null $record */
         $templateClass = $record ? $record->template : $get('template');
 
         if (! $templateClass || ! class_exists($templateClass)) {

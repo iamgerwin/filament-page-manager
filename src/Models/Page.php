@@ -70,19 +70,19 @@ class Page extends Model
     }
 
     /**
-     * @return BelongsTo<Page, Page>
+     * @return BelongsTo<self, self>
      */
     public function parent(): BelongsTo
     {
-        return $this->belongsTo(static::class, 'parent_id');
+        return $this->belongsTo(self::class, 'parent_id');
     }
 
     /**
-     * @return HasMany<Page>
+     * @return HasMany<self, self>
      */
     public function children(): HasMany
     {
-        return $this->hasMany(static::class, 'parent_id')->orderBy('sort_order')->orderBy('name');
+        return $this->hasMany(self::class, 'parent_id')->orderBy('sort_order')->orderBy('name');
     }
 
     /**
@@ -257,6 +257,9 @@ class Page extends Model
         if (empty($slug)) {
             $locales = config('filament-page-manager.locales', ['en' => 'English']);
             foreach (array_keys($locales) as $locale) {
+                if (!is_string($locale)) {
+                    continue;
+                }
                 $baseSlug = Str::slug($this->name.'-copy');
                 $counter = 1;
                 $uniqueSlug = $baseSlug;
